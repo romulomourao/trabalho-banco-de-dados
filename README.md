@@ -1,5 +1,5 @@
 # TRABALHO BD
-
+ __Alunos: Romulo, Jhonatan e Suelen__
 
 ### Modelo Conceitual
 ![modelo](img/modelo.png)
@@ -30,7 +30,8 @@ CREATE TABLE pessoa (
   nome VARCHAR(45) NOT NULL,
   telefone VARCHAR(45),
   CONSTRAINT pk_pessoa PRIMARY KEY (pessoa_id),
-  CONSTRAINT fk_pessoa_cidade FOREIGN KEY (cidade_id) REFERENCES cidade (cidade_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT fk_pessoa_cidade FOREIGN KEY (cidade_id) REFERENCES cidade (cidade_id)
+  ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE professor(
@@ -41,7 +42,8 @@ CREATE TABLE professor(
   CONSTRAINT uk_professor_cpf UNIQUE KEY(cpf),
   CONSTRAINT uk_professor_rg UNIQUE KEY(rg),
   CONSTRAINT pk_professor PRIMARY KEY (professor_id),
-  CONSTRAINT fk_professor_pessoa FOREIGN KEY (professor_id) REFERENCES pessoa (pessoa_id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT fk_professor_pessoa FOREIGN KEY (professor_id) REFERENCES pessoa (pessoa_id)
+  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE escola(
@@ -51,8 +53,10 @@ CREATE TABLE escola(
   cidade_id SMALLINT UNSIGNED NOT NULL,
   CONSTRAINT pk_escola PRIMARY KEY(escola_id),
   CONSTRAINT uk_escola_professor UNIQUE KEY (diretor_id),
-  CONSTRAINT fk_escola_professor FOREIGN KEY (diretor_id) REFERENCES professor (professor_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT fk_escola_cidade FOREIGN KEY (cidade_id) REFERENCES cidade (cidade_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT fk_escola_professor FOREIGN KEY (diretor_id) REFERENCES professor (professor_id)
+  ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT fk_escola_cidade FOREIGN KEY (cidade_id) REFERENCES cidade (cidade_id)
+  ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE turma(
@@ -60,7 +64,8 @@ CREATE TABLE turma(
   escola_id SMALLINT UNSIGNED NOT NULL,
   nome VARCHAR(45) NOT NULL,
   CONSTRAINT pk_turma PRIMARY KEY (turma_id),
-  CONSTRAINT fk_turma_escola FOREIGN KEY (escola_id) REFERENCES escola (escola_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT fk_turma_escola FOREIGN KEY (escola_id) REFERENCES escola (escola_id)
+  ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE aluno(
@@ -70,8 +75,10 @@ CREATE TABLE aluno(
   data_nasc DATE NOT NULL,
   CONSTRAINT pk_aluno PRIMARY KEY (aluno_id),
   CONSTRAINT uk_aluno_pessoa UNIQUE KEY (matricula),
-  CONSTRAINT fk_aluno_pessoa FOREIGN KEY (aluno_id) REFERENCES pessoa (pessoa_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT fk_aluno_turma FOREIGN KEY (turma_id) REFERENCES turma (turma_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT fk_aluno_pessoa FOREIGN KEY (aluno_id) REFERENCES pessoa (pessoa_id)
+  ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT fk_aluno_turma FOREIGN KEY (turma_id) REFERENCES turma (turma_id)
+  ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE contato(
@@ -79,15 +86,18 @@ CREATE TABLE contato(
   nome VARCHAR(45) NOT NULL,
   telefone VARCHAR(45) NOT NULL,
   CONSTRAINT pk_contato PRIMARY KEY (aluno_id,nome),
-  CONSTRAINT fk_aluno_contato FOREIGN KEY (aluno_id) REFERENCES aluno (aluno_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT fk_aluno_contato FOREIGN KEY (aluno_id) REFERENCES aluno (aluno_id)
+  ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE professor_disciplina(
   disciplina_id SMALLINT UNSIGNED NOT NULL,
   professor_id SMALLINT UNSIGNED NOT NULL,
   CONSTRAINT pk_professor_disciplina PRIMARY KEY (disciplina_id, professor_id),
-  CONSTRAINT fk_professor_disciplina_disciplina FOREIGN KEY (disciplina_id) REFERENCES disciplina (disciplina_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT fk_professor_disciplina_professor FOREIGN KEY (professor_id) REFERENCES professor (professor_id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT fk_professor_disciplina_disciplina FOREIGN KEY (disciplina_id) REFERENCES disciplina (disciplina_id)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_professor_disciplina_professor FOREIGN KEY (professor_id) REFERENCES professor (professor_id)
+  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE ministra_turma(
@@ -95,8 +105,10 @@ CREATE TABLE ministra_turma(
   professor_id SMALLINT UNSIGNED NOT NULL,
   turma_id SMALLINT UNSIGNED NOT NULL,
   CONSTRAINT pk_ministra_turma PRIMARY KEY (disciplina_id, professor_id,turma_id),
-  CONSTRAINT fk_ministra_turma_professor_disciplina FOREIGN KEY (disciplina_id, professor_id) REFERENCES professor_disciplina (disciplina_id, professor_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT fk_ministra_turma_turma FOREIGN KEY (turma_id) REFERENCES turma (turma_id) ON DELETE CASCADE ON UPDATE CASCADE  
+  CONSTRAINT fk_ministra_turma_professor_disciplina FOREIGN KEY (disciplina_id, professor_id)
+  REFERENCES professor_disciplina (disciplina_id, professor_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_ministra_turma_turma FOREIGN KEY (turma_id) REFERENCES turma (turma_id)
+  ON DELETE CASCADE ON UPDATE CASCADE  
 );
 ```
 
@@ -126,7 +138,8 @@ INSERT INTO pessoa(cidade_id, nome, telefone) VALUES ( 1,"Daniel Melo","(21) 650
 ( 4,"Breno Ferreira","(21) 2434-4966"),( 4,"Estevan Barbosa","(21) 2277-7809"),( 5,"Felipe Pereira","(21) 3082-2715"),
 ( 5,"Gabrielle Almeida","(21) 8370-4073"),( 5,"Evelyn Sousa","(21) 5906-4076"),( 5,"Marcos Carvalho","(21) 3600-4680"),
 ( 5,"Ryan Costa","(21) 6790-4138"),( 5,"Letícia Alves","(21) 7185-9449"),( 5,"Leila Castro","(21) 8225-6842"),
-( 5,"Fernanda Costa","(21) 6522-4263"),( 5,"Victor Lima","(21) 3482-9220"),( 5,"Felipe Gomes","(21) 5574-7364"),( 5,"Matheus Silva","(21) 5990-6045"),( 6,"Kauê Ferreira","(21) 6839-7328"),( 6,"Miguel Pinto","(21) 6953-8260"),
+( 5,"Fernanda Costa","(21) 6522-4263"),( 5,"Victor Lima","(21) 3482-9220"),( 5,"Felipe Gomes","(21) 5574-7364"),
+( 5,"Matheus Silva","(21) 5990-6045"),( 6,"Kauê Ferreira","(21) 6839-7328"),( 6,"Miguel Pinto","(21) 6953-8260"),
 ( 6,"Diego Azevedo","(21) 8471-5922"),( 6,"Davi Dias","(21) 8466-7501"),( 6,"Cauã Goncalves","(21) 4170-6206"),
 ( 6,"Giovanna Rodrigues","(21) 8327-7153"),( 6,"Kaua Cunha","(21) 3531-6756"),( 6,"Murilo Rodrigues","(21) 4571-4774"),
 ( 6,"Gabriel Alves","(21) 7406-6346"),( 6,"Gustavo Melo","(21) 7844-6513"),( 6,"Matheus Rocha","(21) 4125-5538"),
@@ -246,7 +259,7 @@ HAVING COUNT(DISTINCT m.turma_id) >= 3
 
 - 5) Listar por disciplina o número de professores que podem ministrá-la e quantos efetivamente ministram a mesma para uma turma.
 ```sql
-SELECT d.nome disciplina, COUNT(distinct p.professor_id) podem_ministrar, 
+SELECT d.nome disciplina, COUNT(distinct p.professor_id) podem_ministrar,
 COUNT(distinct mt.professor_id) ministrando
 FROM disciplina d
 LEFT JOIN professor_disciplina pd ON d.disciplina_id = pd.disciplina_id
